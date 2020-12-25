@@ -2,7 +2,6 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
     <p>
-      {{shalom.s}} {{olam.s}}
       <button @click="gg" >Setup</button>
       <button @click="gg1" >BTN1</button>
        <button @click="doRefresh" >NextTickRefresh</button>
@@ -16,6 +15,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import {params} from "./Store"
+import {RefreshResult} from "./PWorkbook"
 
 @Component
 export default class HelloWorld extends Vue {
@@ -30,8 +30,7 @@ export default class HelloWorld extends Vue {
   symbl = Symbol()
 
    mounted() {
-    params.pw.setRefreshCallback(this.symbl, () => {
-      const ret = params.pw.refresh(); 
+    params.pw.setRefreshCallback(this.symbl, (ret: RefreshResult) => {
       ret.t(params.theComputed, ()=>{{ this.theComputed = params.theComputed.ref}})
       ret.t(params.shalom, ()=>{{ this.shalom = params.shalom.ref}})
       ret.t(params.olam, ()=>{{ this.olam = params.olam.ref}})
