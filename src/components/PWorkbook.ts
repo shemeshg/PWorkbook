@@ -1,5 +1,5 @@
 
-export class PRef<T> {
+class PRef<T> {
   private _ref: T;
   private _refreshCallback: () => void
   needsRefresh = false;
@@ -25,7 +25,7 @@ export class PRef<T> {
   }
 }
 
-export class PComputed<T> extends PRef<T> {
+class PComputed<T> extends PRef<T> {
   pcomputed: () => T 
   
 
