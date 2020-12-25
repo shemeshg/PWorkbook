@@ -8,6 +8,7 @@
        <button @click="doRefresh" >NextTickRefresh</button>
     </p>
     <p>{{shalom}} {{olam}} {{theComputed}}</p>
+    <p>{{ depComp }} </p>
     <h3>Installed CLI Plugins</h3>
     <ul>
       <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
@@ -39,12 +40,12 @@ import {PWorkbook} from "./test"
 
   function initWbk(){
     const pw = new PWorkbook()
-    const s1 = pw.addRef("shalom")
-    const s2 = pw.addRef("olam")
-    const theComputed = pw.addComputed( ()=> {return s1.ref +  s2.ref} , [s1, s2])
-
+    const shalom = pw.addRef("shalom")
+    const olam = pw.addRef("olam")
+    const theComputed = pw.addComputed( ()=> {return shalom.ref +  olam.ref} , [shalom, olam])
+    const depComp = pw.addComputed( ()=> {return " *** " + theComputed.ref + " Also works ok "} , [theComputed])
     
-    return  {pw, s1,s2,theComputed }
+    return  {pw, shalom,olam,theComputed, depComp }
   }
 
   const params = initWbk();
@@ -53,16 +54,19 @@ export default class HelloWorld extends Vue {
   @Prop() private msg!: string;
 
   
-  shalom = params.s1.ref  
-  olam  = params.s2.ref    
+  shalom = params.shalom.ref  
+  olam  = params.olam.ref    
   theComputed = params.theComputed.ref  
-  
+  depComp = params.depComp.ref 
 
    mounted() {
     params.pw.setRefreshCallback = () => {
       const ret = params.pw.refresh(); 
       if (ret.indexOf(params.theComputed) > -1) { this.theComputed = params.theComputed.ref}
-      debugger;
+      if (ret.indexOf(params.shalom) > -1) { this.shalom = params.shalom.ref}
+      if (ret.indexOf(params.olam) > -1) { this.olam = params.olam.ref}
+      if (ret.indexOf(params.depComp) > -1) { this.depComp = params.depComp.ref}
+
       return ;
     } 
   }
@@ -70,13 +74,13 @@ export default class HelloWorld extends Vue {
 
 
   gg(){
-    params.s2.ref = "google"
+    params.olam.ref = "google"
   } 
 
 
 
   gg1(){
-    params.s2.ref = "yahoo"
+    params.olam.ref = "yahoo"
   }  
   
   doRefresh(){

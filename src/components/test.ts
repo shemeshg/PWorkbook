@@ -2,6 +2,7 @@
 class PRef {
   private _ref: string;
   private _refreshCallback: () => void
+  needsRefresh = false;
 
   get ref(){
     return this._ref
@@ -12,6 +13,7 @@ class PRef {
     this.invalidates.forEach(c => {
       c.needsRefresh = true
     });
+    this.needsRefresh = true;
     this._refreshCallback();
   }
 
@@ -24,7 +26,7 @@ class PRef {
 
 class PComputed extends PRef {
   pcomputed: () => string 
-  needsRefresh = false;
+  
 
   set dependsOn(cary: PRef[] ){
     cary.forEach( pref=>{
@@ -51,6 +53,8 @@ class PComputed extends PRef {
 
 export class PWorkbook {
   private _computedItems: PComputed[] =[]
+  private _refItems: PRef[] =[]
+
   private _refreshCallback = () => {return ;}
   private refreshCallback = () => {this._refreshCallback()}
 
@@ -60,12 +64,24 @@ export class PWorkbook {
 
   addRef(s: string){
     const pref =  new PRef(s, this.refreshCallback);
+    this._refItems.push( pref )
     return pref
   }
 
   addComputed( func: () => string,  dependsOn: PRef[]){
     const c = new PComputed(func);
-    c.dependsOn = dependsOn
+    const flatDependsOn = dependsOn.filter( (row)=>{ return !(row instanceof PComputed) })
+
+    // Flatten computed of computed 
+    dependsOn.filter( (row)=>{ return (row instanceof PComputed) }).forEach( (cmpRow)=>{
+        this._refItems.forEach(ref=>{
+          if ( ref.invalidates.filter( (f)=>{return f===cmpRow}).length > 0){          
+            flatDependsOn.push(ref);
+          }
+        })
+    })
+    c.dependsOn = flatDependsOn
+
     this._computedItems.push(c)
 
     c.needsRefresh = true
@@ -75,7 +91,11 @@ export class PWorkbook {
   }
 
   refresh(){
-    const toUpdatyeItems = this._computedItems.filter( (row)=>{return row.needsRefresh})
+    const toUpdatyeItems: PRef [] = this._computedItems.filter( (row)=>{return row.needsRefresh})
+    this._refItems.filter( (row)=>{return row.needsRefresh}).forEach( (row)=>{
+      toUpdatyeItems.push(row)
+      row.needsRefresh = false
+    })
     this._computedItems.forEach( (c)=>{
       c.refresh()
     })
