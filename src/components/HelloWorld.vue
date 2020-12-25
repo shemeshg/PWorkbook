@@ -59,8 +59,10 @@ export default class HelloWorld extends Vue {
   theComputed = params.theComputed.ref  
   depComp = params.depComp.ref 
 
+  symbl = Symbol()
+
    mounted() {
-    params.pw.setRefreshCallback = () => {
+    params.pw.setRefreshCallback(this.symbl, () => {
       const ret = params.pw.refresh(); 
       if (ret.indexOf(params.theComputed) > -1) { this.theComputed = params.theComputed.ref}
       if (ret.indexOf(params.shalom) > -1) { this.shalom = params.shalom.ref}
@@ -68,10 +70,12 @@ export default class HelloWorld extends Vue {
       if (ret.indexOf(params.depComp) > -1) { this.depComp = params.depComp.ref}
 
       return ;
-    } 
+    })
   }
 
-
+  destroyed(){
+    params.pw.unSetRefreshCallback(this.symbl)
+  }
 
   gg(){
     params.olam.ref = "google"

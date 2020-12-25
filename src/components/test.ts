@@ -55,11 +55,17 @@ export class PWorkbook {
   private _computedItems: PComputed[] =[]
   private _refItems: PRef[] =[]
 
-  private _refreshCallback = () => {return ;}
-  private refreshCallback = () => {this._refreshCallback()}
+  private _refreshCallback: {symbl: symbol;func: () => void }[]  = []
+  private refreshCallback = () => {this._refreshCallback.forEach(row=>{
+    row.func();
+  })}
 
-  set setRefreshCallback(func: () => void) {
-    this._refreshCallback = func
+  setRefreshCallback(symbl: symbol ,func: () => void) {
+    this._refreshCallback.push ({symbl:symbl,func: func})
+  }
+
+  unSetRefreshCallback(symbl: symbol){
+    this._refreshCallback = this._refreshCallback.filter( (row)=>{return row.symbl !== symbl})
   }
 
   addRef(s: string){
