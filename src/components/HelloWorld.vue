@@ -8,6 +8,7 @@
     </p>
     <p>{{shalom}} {{olam}} {{theComputed}}</p>
     <p>{{ depComp }} </p>
+    <p>{{myNumber}}</p>
     
   </div>
 </template>
@@ -26,7 +27,7 @@ export default class HelloWorld extends Vue {
   olam  = params.olam.ref    
   theComputed = params.theComputed.ref  
   depComp = params.depComp.ref 
-
+  myNumber = params.myNumber.ref 
   symbl = Symbol()
 
    mounted() {
@@ -35,7 +36,7 @@ export default class HelloWorld extends Vue {
       ret.t(params.shalom, ()=>{{ this.shalom = params.shalom.ref}})
       ret.t(params.olam, ()=>{{ this.olam = params.olam.ref}})
       ret.t(params.depComp, ()=>{{ this.depComp = params.depComp.ref}})
-    
+      ret.t(params.myNumber, ()=>{{ this.myNumber = params.myNumber.ref}})
       return ;
     })
   }
@@ -45,6 +46,7 @@ export default class HelloWorld extends Vue {
   }
 
   gg(){
+    params.myNumber.ref = params.myNumber.ref + 10
     for (let i=0;i<10000;i++){
       setTimeout( ()=>{
         params.olam.ref = "google" + i

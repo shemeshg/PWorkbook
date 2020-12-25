@@ -1,6 +1,6 @@
 
-class PRef {
-  private _ref: string;
+export class PRef<T> {
+  private _ref: T;
   private _refreshCallback: () => void
   needsRefresh = false;
 
@@ -8,7 +8,7 @@ class PRef {
     return this._ref
   }
 
-  set ref(s: string){
+  set ref(s: T){
     this._ref = s
     this.invalidates.forEach(c => {
       c.needsRefresh = true
@@ -17,18 +17,19 @@ class PRef {
     this._refreshCallback();
   }
 
-  invalidates: PComputed[] = []
-  constructor (s: string, refreshCallback: () => void){
+  // eslint-disable-next-line 
+  invalidates: PComputed<any>[] = []
+  constructor (s: T, refreshCallback: () => void){
     this._ref = s
     this._refreshCallback = refreshCallback
   }
 }
 
-class PComputed extends PRef {
-  pcomputed: () => string 
+export class PComputed<T> extends PRef<T> {
+  pcomputed: () => T 
   
 
-  setDependsOn(cary: PRef[] ){
+  setDependsOn(cary: PRef<T>[] ){
     cary.forEach( pref=>{
       if (pref.invalidates.indexOf(this) === -1){
         pref.invalidates.push(this)
@@ -38,8 +39,8 @@ class PComputed extends PRef {
   }
 
 
-  constructor( c: () => string ){
-    super("", ()=>{return;});
+  constructor( c: () => T ){
+    super("" as unknown as T, ()=>{return;});
     this.pcomputed = c    
   }
 
@@ -52,19 +53,24 @@ class PComputed extends PRef {
 }
 
 export class RefreshResult {
-  ret: PRef[] = []
-  constructor(ret: PRef[]){
+  // eslint-disable-next-line 
+  ret: PRef<any>[] = []
+  // eslint-disable-next-line 
+  constructor(ret: PRef<any>[]){
     this.ret = ret;
   }
 
-  t(i: PRef, func: () => void){
+  // eslint-disable-next-line 
+  t(i: PRef<any>, func: () => void){
     if (this.ret.indexOf(i) > -1) { func()}
   }
 }
 
 export class PWorkbook {
-  private _computedItems: PComputed[] =[]
-  private _refItems: PRef[] =[]
+  // eslint-disable-next-line 
+  private _computedItems: PComputed<any>[] =[]
+  // eslint-disable-next-line 
+  private _refItems: PRef<any>[] =[]
 
   private _refreshCallback: {symbl: symbol;func: (ret: RefreshResult) => void }[]  = []
   private refreshCallback = () => {
@@ -82,13 +88,15 @@ export class PWorkbook {
     this._refreshCallback = this._refreshCallback.filter( (row)=>{return row.symbl !== symbl})
   }
 
-  addRef(s: string){
+   
+  addRef<T>(s: T){
     const pref =  new PRef(s, this.refreshCallback);
     this._refItems.push( pref )
     return pref
   }
 
-  addComputed( func: () => string,  dependsOn: PRef[]){
+  // eslint-disable-next-line
+  addComputed<T>( func: () => T,  dependsOn: PRef<any>[]){
     const c = new PComputed(func);
     const flatDependsOn = dependsOn.filter( (row)=>{ return !(row instanceof PComputed) })
 
@@ -111,7 +119,8 @@ export class PWorkbook {
   }
 
   refresh(){
-    const toUpdatyeItems: PRef [] = this._computedItems.filter( (row)=>{return row.needsRefresh})
+    // eslint-disable-next-line 
+    const toUpdatyeItems: PRef<any>[] = this._computedItems.filter( (row)=>{return row.needsRefresh})
     this._refItems.filter( (row)=>{return row.needsRefresh}).forEach( (row)=>{
       toUpdatyeItems.push(row)
       row.needsRefresh = false
