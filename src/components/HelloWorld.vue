@@ -2,10 +2,12 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
     <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
+      {{shalom.s}} {{olam.s}}
+      <button @click="gg" >Setup</button>
+      <button @click="gg1" >BTN1</button>
+       <button @click="doRefresh" >NextTickRefresh</button>
     </p>
+    <p>{{shalom}} {{olam}} {{theComputed}}</p>
     <h3>Installed CLI Plugins</h3>
     <ul>
       <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
@@ -33,10 +35,54 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import {PWorkbook} from "./test"
 
+  function initWbk(){
+    const pw = new PWorkbook()
+    const s1 = pw.addRef("shalom")
+    const s2 = pw.addRef("olam")
+    const theComputed = pw.addComputed( ()=> {return s1.ref +  s2.ref} , [s1, s2])
+
+    
+    return  {pw, s1,s2,theComputed }
+  }
+
+  const params = initWbk();
 @Component
 export default class HelloWorld extends Vue {
   @Prop() private msg!: string;
+
+  
+  shalom = params.s1.ref  
+  olam  = params.s2.ref    
+  theComputed = params.theComputed.ref  
+  
+
+   mounted() {
+    params.pw.setRefreshCallback = () => {
+      const ret = params.pw.refresh(); 
+      if (ret.indexOf(params.theComputed) > -1) { this.theComputed = params.theComputed.ref}
+      debugger;
+      return ;
+    } 
+  }
+
+
+
+  gg(){
+    params.s2.ref = "google"
+  } 
+
+
+
+  gg1(){
+    params.s2.ref = "yahoo"
+  }  
+  
+  doRefresh(){
+    params.pw.refresh()
+  }
+
 }
 </script>
 
