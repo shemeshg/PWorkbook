@@ -8,7 +8,7 @@ https://github.com/shemeshg/PWorkbook/blob/master/src/components/PWorkbook.ts
 
 ## Project setup
 
-- copy PWorkbook.ys to your project
+- copy PWorkbook.ts to your project
 
 - create store file
 
