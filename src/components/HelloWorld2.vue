@@ -5,7 +5,7 @@
       {{shalom.s}} {{olam.s}}
       <button @click="gg" >Setup</button>
       <button @click="gg1" >BTN1</button>
-       <button @click="doRefresh" >NextTickRefresh</button>
+
     </p>
     <p>{{shalom}} {{olam}} {{theComputed}}</p>
     <p>{{ depComp }} </p>
@@ -22,23 +22,28 @@ export default class HelloWorld extends Vue {
   @Prop() private msg!: string;
 
   
-  shalom = params.shalom.ref  
+  shalom = "BBBB"; //params.shalom.ref  
   olam  = params.olam.ref    
   theComputed = params.theComputed.ref  
   depComp = params.depComp.ref 
 
-  symbl = Symbol()
+  symbl = Symbol("2")
 
    mounted() {
     params.pw.setRefreshCallback(this.symbl, () => {
       const ret = params.pw.refresh(); 
       ret.t(params.theComputed, ()=>{{ this.theComputed = params.theComputed.ref}})
-      ret.t(params.shalom, ()=>{{ this.shalom = params.shalom.ref}})
+      ret.t(params.shalom, ()=>{{ this.shalom = params.shalom.ref;
+        debugger;}})
       ret.t(params.olam, ()=>{{ this.olam = params.olam.ref}})
       ret.t(params.depComp, ()=>{{ this.depComp = params.depComp.ref}})
-    
+      console.log(this.shalom + " | " + params.shalom.ref)
+      
+      debugger;
       return ;
     })
+    
+    
   }
 
   destroyed(){
@@ -46,18 +51,16 @@ export default class HelloWorld extends Vue {
   }
 
   gg(){
-    params.olam.ref = "google"
+    params.olam.ref = "from2google"
   } 
 
 
 
   gg1(){
-    params.olam.ref = "yahoo"
+    params.olam.ref = "from2yahoo"
   }  
   
-  doRefresh(){
-    params.pw.refresh()
-  }
+
 
 }
 </script>

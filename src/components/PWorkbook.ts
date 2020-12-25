@@ -51,14 +51,27 @@ class PComputed extends PRef {
   }
 }
 
+class RefreshResult {
+  ret: PRef[] = []
+  constructor(ret: PRef[]){
+    this.ret = ret;
+  }
+
+  t(i: PRef, func: () => void){
+    if (this.ret.indexOf(i) > -1) { func()}
+  }
+}
+
 export class PWorkbook {
   private _computedItems: PComputed[] =[]
   private _refItems: PRef[] =[]
 
   private _refreshCallback: {symbl: symbol;func: () => void }[]  = []
-  private refreshCallback = () => {this._refreshCallback.forEach(row=>{
+  private refreshCallback = () => {
+    this._refreshCallback.forEach(row=>{
     row.func();
-  })}
+    })
+  }
 
   setRefreshCallback(symbl: symbol ,func: () => void) {
     this._refreshCallback.push ({symbl:symbl,func: func})
@@ -105,6 +118,6 @@ export class PWorkbook {
     this._computedItems.forEach( (c)=>{
       c.refresh()
     })
-    return toUpdatyeItems;
+    return new RefreshResult(toUpdatyeItems);
   }
 }
