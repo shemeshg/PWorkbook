@@ -1,7 +1,8 @@
 # PWorkbook - Typescript reducer (like vuex)
 
 state management pattern + library.
-It is simple and short one typescript file.
+
+* short one typescript file. 
 
 https://github.com/shemeshg/PWorkbook/blob/master/src/components/PWorkbook.ts
 
