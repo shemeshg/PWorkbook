@@ -1,4 +1,4 @@
-# PWorkbook - Typescript reducer
+# PWorkbook - Typescript reducer (like vuejs)
 
 state management pattern + library.
 It is simple and short one typescript file.
