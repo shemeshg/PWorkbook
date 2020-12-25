@@ -28,15 +28,15 @@ class PComputed extends PRef {
   pcomputed: () => string 
   
 
-  set dependsOn(cary: PRef[] ){
+  setDependsOn(cary: PRef[] ){
     cary.forEach( pref=>{
       if (pref.invalidates.indexOf(this) === -1){
         pref.invalidates.push(this)
       }
     } )
+        
   }
 
-  
 
   constructor( c: () => string ){
     super("", ()=>{return;});
@@ -80,7 +80,7 @@ export class PWorkbook {
           }
         })
     })
-    c.dependsOn = flatDependsOn
+    c.setDependsOn(flatDependsOn)
 
     this._computedItems.push(c)
 
