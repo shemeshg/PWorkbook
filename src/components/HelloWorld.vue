@@ -45,7 +45,13 @@ export default class HelloWorld extends Vue {
   }
 
   gg(){
-    params.olam.ref = "google"
+    for (let i=0;i<10000;i++){
+      setTimeout( ()=>{
+        params.olam.ref = "google" + i
+      },0)
+      
+    }
+    
   } 
 
 
