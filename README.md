@@ -31,7 +31,6 @@ export const params = initWbk();
 
 ```typescript
 import {params} from "./Store"
-import {RefreshResult} from "./PWorkbook"
 
 @Component
 export default class Component1 extends Vue {
@@ -40,7 +39,7 @@ export default class Component1 extends Vue {
   symbl = Symbol()
 
   mounted() {
-    params.pw.setRefreshCallback(this.symbl, (ret: RefreshResult) => {      
+    params.pw.setRefreshCallback(this.symbl, (ret) => {      
       ret.t(params.shalom, ()=>{{ this.shalom = params.shalom.ref}})
       ret.t(params.textComputed, ()=>{{ this.textComputed = params.textComputed.ref}})
       return;

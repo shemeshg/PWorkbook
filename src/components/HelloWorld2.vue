@@ -2,8 +2,8 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
     <p>
-      <button @click="gg" >Setup</button>
-      <button @click="gg1" >BTN1</button>
+      <button @click="gg" >Click1</button>
+      <button @click="gg1" >Click2</button>
 
     </p>
     <p>{{shalom}} {{olam}} {{theComputed}}</p>
@@ -15,7 +15,6 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import {params} from "./Store"
-import {RefreshResult} from "./PWorkbook"
 
 @Component
 export default class HelloWorld extends Vue {
@@ -30,7 +29,7 @@ export default class HelloWorld extends Vue {
   symbl = Symbol()
 
    mounted() {
-     params.pw.setRefreshCallback(this.symbl, (ret: RefreshResult) => {
+     params.pw.setRefreshCallback(this.symbl, (ret) => {
       ret.t(params.theComputed, ()=>{{ this.theComputed = params.theComputed.ref}})
       ret.t(params.shalom, ()=>{{ this.shalom = params.shalom.ref}})
       ret.t(params.olam, ()=>{{ this.olam = params.olam.ref}})
