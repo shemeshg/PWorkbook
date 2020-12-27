@@ -81,6 +81,7 @@ export class PWorkbook {
   }
 
   setRefreshCallback(symbl: symbol ,func: (ret: RefreshResult) => void) {
+    this.unSetRefreshCallback( symbl )
     this._refreshCallback.push ({symbl:symbl,func: func})
   }
 
