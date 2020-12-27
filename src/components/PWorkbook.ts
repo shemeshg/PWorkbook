@@ -61,8 +61,8 @@ export class RefreshResult {
   }
 
   // eslint-disable-next-line 
-  t(i: PRef<any>, func: () => void){
-    if (this.ret.indexOf(i) > -1) { func()}
+  t<T>(i: PRef<T>, func: (r: T) => void){
+    if (this.ret.indexOf(i) > -1) { func(i.ref)}
   }
 }
 

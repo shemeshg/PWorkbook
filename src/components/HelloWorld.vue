@@ -30,11 +30,11 @@ export default class HelloWorld extends Vue {
 
    mounted() {
     params.pw.setRefreshCallback(this.symbl, (ret) => {
-      ret.t(params.theComputed, ()=>{{ this.theComputed = params.theComputed.ref}})
-      ret.t(params.shalom, ()=>{{ this.shalom = params.shalom.ref}})
-      ret.t(params.olam, ()=>{{ this.olam = params.olam.ref}})
-      ret.t(params.depComp, ()=>{{ this.depComp = params.depComp.ref}})
-      ret.t(params.myNumber, ()=>{{ this.myNumber = params.myNumber.ref}})
+      ret.t(params.theComputed, (r)=>{{ this.theComputed = r}})
+      ret.t(params.shalom, (r)=>{{ this.shalom = r}})
+      ret.t(params.olam, (r)=>{{ this.olam = r}})
+      ret.t(params.depComp, (r)=>{{ this.depComp = r}})
+      ret.t(params.myNumber, (r)=>{{ this.myNumber = r}})
       return ;
     })
   }
