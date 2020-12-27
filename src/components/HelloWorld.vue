@@ -44,14 +44,13 @@ export default class HelloWorld extends Vue {
   }
 
   gg(){
-    params.myNumber.ref = params.myNumber.ref + 10
+    params.addMynumber(11) 
+    params.myNumber.ref = params.myNumber.ref + 1
     for (let i=0;i<10000;i++){
       setTimeout( ()=>{
         params.olam.ref = "google" + i
-      },0)
-      
+      },0)            
     }
-    
   } 
 
 

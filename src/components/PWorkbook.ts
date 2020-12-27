@@ -73,11 +73,29 @@ export class PWorkbook {
   private _refItems: PRef<any>[] =[]
 
   private _refreshCallback: {symbl: symbol;func: (ret: RefreshResult) => void }[]  = []
-  private refreshCallback = () => {
+
+  doNotAutoRefresh = false;
+
+  refreshCallback = () => {
+    if (this.doNotAutoRefresh) {return;}
+
     const ret = this.refresh();
     this._refreshCallback.forEach(row=>{
     row.func(ret);
     })
+  }
+
+  private refresh(){
+    // eslint-disable-next-line 
+    const toUpdatyeItems: PRef<any>[] = this._computedItems.filter( (row)=>{return row.needsRefresh})
+    this._refItems.filter( (row)=>{return row.needsRefresh}).forEach( (row)=>{
+      toUpdatyeItems.push(row)
+      row.needsRefresh = false
+    })
+    this._computedItems.forEach( (c)=>{
+      c.refresh()
+    })
+    return new RefreshResult(toUpdatyeItems);
   }
 
   setRefreshCallback(symbl: symbol ,func: (ret: RefreshResult) => void) {
@@ -119,16 +137,5 @@ export class PWorkbook {
     return c
   }
 
-  refresh(){
-    // eslint-disable-next-line 
-    const toUpdatyeItems: PRef<any>[] = this._computedItems.filter( (row)=>{return row.needsRefresh})
-    this._refItems.filter( (row)=>{return row.needsRefresh}).forEach( (row)=>{
-      toUpdatyeItems.push(row)
-      row.needsRefresh = false
-    })
-    this._computedItems.forEach( (c)=>{
-      c.refresh()
-    })
-    return new RefreshResult(toUpdatyeItems);
-  }
+
 }

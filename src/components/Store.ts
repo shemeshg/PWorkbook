@@ -8,7 +8,11 @@ import {PWorkbook} from "./PWorkbook"
     const theComputed = pw.addComputed( ()=> {return shalom.ref +  olam.ref } , [shalom, olam])
     const depComp = pw.addComputed( ()=> {return " *** " + theComputed.ref + " Also works ok "} , [theComputed])
     
-    return  {pw, shalom,olam,theComputed, depComp, myNumber }
+    const addMynumber = (i: number)=>{
+      myNumber.ref = myNumber.ref + i;
+    }
+
+    return  {pw, shalom,olam,theComputed, depComp, myNumber, addMynumber }
   }
 
   export const params = initWbk();
