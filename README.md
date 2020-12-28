@@ -57,6 +57,20 @@ export default class Component1 extends Vue {
 }
 ```
 
+### Or useing getter and setter
+
+```typescript
+  pShalom = params.shalom.ref  
+  get shalom(){ return this.pShalom}
+  set shalom(s){params.shalom.ref = s}
+
+  mounted() {
+    params.pw.setRefreshCallback(this.symbl, (ret) => {      
+      ret.t(params.shalom, ()=>{{ this.pShalom = params.shalom.ref}})
+    })
+  }  
+```
+
 ### Compiles and hot-reloads for development
 
 ```
