@@ -5,7 +5,7 @@
       <button @click="gg" >Click1</button>
       <button @click="gg1" >Click2</button>
     </p>
-    <p>{{shalom}} {{olam}} {{theComputed}}</p>
+    <p> <input v-model="shalom"/> {{olam}} {{theComputed}}</p>
     <p>{{ depComp }} </p>
     <p>{{myNumber}}</p>
     
@@ -21,7 +21,11 @@ export default class HelloWorld extends Vue {
   @Prop() private msg!: string;
 
   
-  shalom = params.shalom.ref  
+  pShalom = params.shalom.ref  
+  get shalom(){ return this.pShalom}
+  set shalom(s){params.shalom.ref = s}
+
+
   olam  = params.olam.ref    
   theComputed = params.theComputed.ref  
   depComp = params.depComp.ref 
@@ -31,7 +35,7 @@ export default class HelloWorld extends Vue {
    mounted() {
     params.pw.setRefreshCallback(this.symbl, (ret) => {
       ret.t(params.theComputed, (r)=>{{ this.theComputed = r}})
-      ret.t(params.shalom, (r)=>{{ this.shalom = r}})
+      ret.t(params.shalom, (r)=>{{ this.pShalom = r}})
       ret.t(params.olam, (r)=>{{ this.olam = r}})
       ret.t(params.depComp, (r)=>{{ this.depComp = r}})
       ret.t(params.myNumber, (r)=>{{ this.myNumber = r}})
