@@ -10,6 +10,10 @@ export class PRef<T> {
 
   set ref(s: T){
     this._ref = s
+    this.signalRefresh();
+  }
+
+  signalRefresh(){
     this.invalidates.forEach(c => {
       c.needsRefresh = true
     });
