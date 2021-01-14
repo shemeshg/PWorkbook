@@ -12,26 +12,30 @@ import {PRef} from "./PWorkbook"
 import {params} from "./Store"
 
 
-function getComputed<T>(storeVar: PRef<T>, compositVar: Ref<T>){
-  return computed({
-      get: ()=>{ return compositVar.value},
+function getComputed<T>(storeVar: PRef<T>){
+  const tmpRef = ref(storeVar.ref) as unknown as Ref<T>
+  const comp =  computed({
+      get: ()=>{ return tmpRef.value},
       set: (s) =>{storeVar.ref = s}
     })
+  return [comp, tmpRef]
 }
+
+
 
 export default defineComponent({
   setup () {
+
     const symbl = Symbol();
-    
-    const pShalom = ref( params.shalom.ref)
-    const shalom = getComputed(params.shalom, pShalom) 
+        
+    const [shalom, pShalom] = getComputed(params.shalom) 
+    const [myAryCount, pMyAryCount] = getComputed(params.myAryCount) 
     
     // All objects like lists are reactive automaticly by Vue
     // no need getComputed
     const myAry = ref(params.myAry.ref)
 
-    const pMyAryCount = ref( params.myAryCount.ref)
-    const myAryCount = getComputed(params.myAryCount, pMyAryCount)
+    
 
     const pushMyAry=()=>{
       params.myAry.ref.push("a")
