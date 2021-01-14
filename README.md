@@ -73,6 +73,8 @@ export default class Component1 extends Vue {
 
 ### Composite API
 
+See:
+https://github.com/shemeshg/PWorkbook/blob/master/src/components/HellowWorldComposition.vue
 
 ```typescript
   setup () {
