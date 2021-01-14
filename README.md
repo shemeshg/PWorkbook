@@ -80,18 +80,16 @@ https://github.com/shemeshg/PWorkbook/blob/master/src/components/HellowWorldComp
 ```typescript
   setup () {
     const symbl = Symbol();
-    
-    const pShalom = ref( params.shalom.ref)
-    const shalom = getComputed(params.shalom, pShalom) 
+    const ch = new CompositHelper(params.pw, symbl)
+
+    const shalom = ch.getComputed(params.shalom) 
 
     onMounted(()=>{
-      params.pw.setRefreshCallback(symbl, (ret) => {      
-        ret.c(params.shalom, pShalom)
-      })
+      ch.onMounted()
     })
 
     onUnmounted( ()=>{
-      params.pw.unSetRefreshCallback(symbl)
+      ch.onUnmounted()
     })
     return {shalom};
   },

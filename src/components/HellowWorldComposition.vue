@@ -7,29 +7,20 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted, computed , onUnmounted, Ref} from '@vue/composition-api'
-import {PRef} from "./PWorkbook"
+import { defineComponent, ref, onMounted , onUnmounted} from '@vue/composition-api'
+
 import {params} from "./Store"
-
-
-function getComputed<T>(storeVar: PRef<T>){
-  const tmpRef = ref(storeVar.ref) as unknown as Ref<T>
-  const comp =  computed({
-      get: ()=>{ return tmpRef.value},
-      set: (s) =>{storeVar.ref = s}
-    })
-  return [comp, tmpRef]
-}
-
+import {CompositHelper} from "./CompositHelper"
 
 
 export default defineComponent({
   setup () {
 
     const symbl = Symbol();
-        
-    const [shalom, pShalom] = getComputed(params.shalom) 
-    const [myAryCount, pMyAryCount] = getComputed(params.myAryCount) 
+    const ch = new CompositHelper(params.pw, symbl)
+
+    const shalom = ch.getComputed(params.shalom) 
+    const myAryCount = ch.getComputed(params.myAryCount) 
     
     // All objects like lists are reactive automaticly by Vue
     // no need getComputed
@@ -44,15 +35,12 @@ export default defineComponent({
     }
 
     onMounted(()=>{
-      params.pw.setRefreshCallback(symbl, (ret) => {      
-        ret.c(params.shalom, pShalom)
-        ret.c(params.myAryCount, pMyAryCount)
-        // Notice no need to place, nothing for lists and dictionaries
-      })
+      ch.onMounted()
+      // Notice no need to place, nothing for lists and dictionaries
     })
 
     onUnmounted( ()=>{
-      params.pw.unSetRefreshCallback(symbl)
+      ch.onUnmounted()
     })
     return {shalom, myAry, pushMyAry, myAryCount};
   },
