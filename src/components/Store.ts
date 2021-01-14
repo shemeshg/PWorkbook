@@ -12,7 +12,10 @@ import {PWorkbook} from "./PWorkbook"
       myNumber.ref = myNumber.ref + i;
     }
 
-    return  {pw, shalom,olam,theComputed, depComp, myNumber, addMynumber }
+    const myAry = pw.addRef(["a"])
+    const myAryCount = pw.addComputed( ()=> {return myAry.ref.length} , [myAry])
+
+    return  {pw, shalom,olam,theComputed, depComp, myNumber, addMynumber, myAry, myAryCount }
   }
 
   export const params = initWbk();
