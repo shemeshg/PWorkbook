@@ -81,9 +81,7 @@ https://github.com/shemeshg/PWorkbook/blob/master/src/components/HellowWorldComp
   setup () {
     const symbl = Symbol();
     const ch = new CompositHelper(params.pw, symbl)
-
-    const shalom = ch.getComputed(params.shalom) 
-
+    
     onMounted(()=>{
       ch.onMounted()
     })
@@ -91,7 +89,8 @@ https://github.com/shemeshg/PWorkbook/blob/master/src/components/HellowWorldComp
     onUnmounted( ()=>{
       ch.onUnmounted()
     })
-    return {shalom};
+    
+    return {shalom: ch.getComputed(params.shalom) };
   },
 
 ```

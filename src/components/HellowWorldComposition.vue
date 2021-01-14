@@ -19,9 +19,7 @@ export default defineComponent({
     const symbl = Symbol();
     const ch = new CompositHelper(params.pw, symbl)
 
-    const shalom = ch.getComputed(params.shalom) 
-    const myAryCount = ch.getComputed(params.myAryCount) 
-    
+      
     // All objects like lists are reactive automaticly by Vue
     // no need getComputed
     const myAry = ref(params.myAry.ref)
@@ -42,7 +40,9 @@ export default defineComponent({
     onUnmounted( ()=>{
       ch.onUnmounted()
     })
-    return {shalom, myAry, pushMyAry, myAryCount};
+    return {shalom: ch.getComputed(params.shalom),  
+            myAryCount: ch.getComputed(params.myAryCount), 
+            myAry: myAry, pushMyAry };
   },
 
 })
