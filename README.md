@@ -71,6 +71,30 @@ export default class Component1 extends Vue {
   }  
 ```
 
+### Composite API
+
+
+```typescript
+  setup () {
+    const symbl = Symbol();
+    
+    const pShalom = ref( params.shalom.ref)
+    const shalom = getComputed(params.shalom, pShalom) 
+
+    onMounted(()=>{
+      params.pw.setRefreshCallback(symbl, (ret) => {      
+        ret.c(params.shalom, pShalom)
+      })
+    })
+
+    onUnmounted( ()=>{
+      params.pw.unSetRefreshCallback(symbl)
+    })
+    return {shalom};
+  },
+
+```
+
 ### Compiles and hot-reloads for development
 
 ```
