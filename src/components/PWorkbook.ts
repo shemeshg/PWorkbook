@@ -1,5 +1,5 @@
 
-class PRef<T> {
+export class PRef<T> {
   private _ref: T;
   private _refreshCallback: () => void
   needsRefresh = false;
@@ -64,6 +64,12 @@ export class RefreshResult {
   t<T>(i: PRef<T>, func: (r: T) => void){
     if (this.ret.indexOf(i) > -1) { func(i.ref)}
   }
+
+  // c for Vue composite api
+  // eslint-disable-next-line 
+  c<T>(i: PRef<T>, vueRef: any){
+    if (this.ret.indexOf(i) > -1) { vueRef.value = i.ref }
+  }  
 }
 
 export class PWorkbook {

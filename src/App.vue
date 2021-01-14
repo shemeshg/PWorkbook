@@ -3,6 +3,7 @@
     <img alt="Vue logo" src="./assets/logo.png">
     <HelloWorld msg="First Component"/>
     <HelloWorld2 msg="Second Component"/>
+    <HellowWorldComposition />
   </div>
 </template>
 
@@ -10,11 +11,13 @@
 import { Component, Vue } from 'vue-property-decorator';
 import HelloWorld from './components/HelloWorld.vue';
 import HelloWorld2 from './components/HelloWorld2.vue';
+import HellowWorldComposition from './components/HellowWorldComposition.vue';
 
 @Component({
   components: {
     HelloWorld,
-    HelloWorld2
+    HelloWorld2,
+    HellowWorldComposition,
   },
 })
 export default class App extends Vue {}
