@@ -7,7 +7,7 @@ export class CompositHelper {
     ary: {s: PRef<any>, r: Ref}[] = [];
 
     pw: PWorkbook;
-    readonly symbl = Symbol();
+    private readonly symbl = Symbol();
 
     constructor(pw: PWorkbook){
       this.pw = pw
