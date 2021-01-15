@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Composite API</h1>
+    <h1>Vue Composition API</h1>
     <p>{{  shalom }}</p>
     <p>{{myAry}} count {{myAryCount}}<button @click="pushMyAry" >pushMyAry</button></p>
     <p>{{olam}}</p>
