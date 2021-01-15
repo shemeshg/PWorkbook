@@ -3,6 +3,7 @@
     <h1>Composite APi</h1>
     <p>{{  shalom }}</p>
     <p>{{myAry}} count {{myAryCount}}<button @click="pushMyAry" >pushMyAry</button></p>
+    <p>{{olam}}</p>
   </div>
 </template>
 
@@ -42,6 +43,7 @@ export default defineComponent({
     })
     return {shalom: ch.getComputed(params.shalom),  
             myAryCount: ch.getComputed(params.myAryCount), 
+            olam: ch.getComputed(params.olam), 
             myAry: myAry, pushMyAry };
   },
 
