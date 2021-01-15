@@ -7,11 +7,10 @@ export class CompositHelper {
     ary: {s: PRef<any>, r: Ref}[] = [];
 
     pw: PWorkbook;
-    symbl: symbol;
+    readonly symbl = Symbol();
 
-    constructor(pw: PWorkbook,symbl: symbol){
+    constructor(pw: PWorkbook){
       this.pw = pw
-      this.symbl = symbl
     }
 
     getComputed<T>(storeVar: PRef<T>){

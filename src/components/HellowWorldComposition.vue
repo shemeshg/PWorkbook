@@ -16,8 +16,8 @@ import {CompositHelper} from "./CompositHelper"
 export default defineComponent({
   setup () {
 
-    const symbl = Symbol();
-    const ch = new CompositHelper(params.pw, symbl)
+    
+    const ch = new CompositHelper(params.pw)
 
       
     // All objects like lists are reactive automaticly by Vue

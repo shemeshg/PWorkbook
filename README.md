@@ -79,8 +79,7 @@ https://github.com/shemeshg/PWorkbook/blob/master/src/components/HellowWorldComp
 
 ```typescript
   setup () {
-    const symbl = Symbol();
-    const ch = new CompositHelper(params.pw, symbl)
+    const ch = new CompositHelper(params.pw)
     
     onMounted(()=>{
       ch.onMounted()
