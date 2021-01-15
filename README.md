@@ -71,7 +71,7 @@ export default class Component1 extends Vue {
   }  
 ```
 
-### Or Composite API
+### Or Vue Composition API
 
 See (also for lists and dictionaries):
 https://github.com/shemeshg/PWorkbook/blob/master/src/components/HellowWorldComposition.vue
