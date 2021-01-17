@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>Vue Composition API</h1>
+    <input v-model="shalom"/> 
     <p>{{  shalom }}</p>
     <p>{{myAry}} count {{myAryCount}}<button @click="pushMyAry" >pushMyAry</button></p>
     <p>{{olam}}</p>
