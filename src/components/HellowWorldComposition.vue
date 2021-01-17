@@ -35,7 +35,6 @@ export default defineComponent({
 
     onMounted(()=>{
       ch.onMounted()
-      // Notice no need to place, nothing for lists and dictionaries
     })
 
     onUnmounted( ()=>{
