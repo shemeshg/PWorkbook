@@ -2,15 +2,15 @@
 
 state management pattern + library.
 
-* short one typescript file.
+* Download one short typescript file.
 
 <https://github.com/shemeshg/PWorkbook/blob/master/src/components/PWorkbook.ts>
 
 ## Project setup
 
-* copy PWorkbook.ts to your project
+* Create store file and import PWorkbook.ts
 
-* create store file
+<https://github.com/shemeshg/PWorkbook/blob/master/src/components/Store.ts>
 
 ```typescript
 import {PWorkbook} from "./PWorkbook"
@@ -27,7 +27,7 @@ function initWbk(){
 export const params = initWbk();
 ```
 
-* Import on every component using the store
+* Import store to component
 
 ```typescript
 import {params} from "./Store"
@@ -57,7 +57,7 @@ export default class Component1 extends Vue {
 }
 ```
 
-### Or useing getter and setter
+### Use getter and setter on typescript components
 
 ```typescript
   pShalom = params.shalom.ref  
@@ -71,7 +71,7 @@ export default class Component1 extends Vue {
   }  
 ```
 
-### Or Vue Composition API
+### Or in Vue Composition API with simple helper file (CompositHelper.ts)
 
 See (also for lists and dictionaries):
 <https://github.com/shemeshg/PWorkbook/blob/master/src/components/HellowWorldComposition.vue>
