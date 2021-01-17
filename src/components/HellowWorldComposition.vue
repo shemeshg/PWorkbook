@@ -16,18 +16,13 @@ import {CompositHelper} from "./CompositHelper"
 
 
 export default defineComponent({
-  setup () {
-
-    
+  setup () {    
     const ch = new CompositHelper(params.pw)
-
       
     // All objects like lists are reactive automaticly by Vue
     // no need getComputed
     const myAry = ref(params.myAry.ref)
-
-    
-
+  
     const pushMyAry=()=>{
       params.myAry.ref.push("a")
       // The object itself reactive, but the store don't know it has been modified, 
