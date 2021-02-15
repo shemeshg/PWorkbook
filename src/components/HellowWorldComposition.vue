@@ -36,9 +36,9 @@ export default defineComponent({
     onUnmounted( ()=>{
       ch.onUnmounted()
     })
-    return {shalom: ch.getComputed(params.shalom),  
-            myAryCount: ch.getComputed(params.myAryCount), 
-            olam: ch.getComputed(params.olam), 
+    return {shalom: ch.getRef(params.shalom),  
+            myAryCount: ch.getRef(params.myAryCount), 
+            olam: ch.getRef(params.olam), 
             myAry: myAry, pushMyAry };
   },
 

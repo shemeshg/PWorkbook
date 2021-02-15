@@ -13,7 +13,7 @@ export class CompositHelper {
       this.pw = pw
     }
 
-    getComputed<T>(storeVar: PRef<T>){
+    getRef<T>(storeVar: PRef<T>){
       const tmpRef = ref(storeVar.ref) as unknown as Ref<T>
       const comp =  computed({
           get: ()=>{ return tmpRef.value},

@@ -88,7 +88,7 @@ See (also for lists and dictionaries):
       ch.onUnmounted()
     })
     
-    return {shalom: ch.getComputed(params.shalom) };
+    return {shalom: ch.getRef(params.shalom) };
   },
 
 ```
