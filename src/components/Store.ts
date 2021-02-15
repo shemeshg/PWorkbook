@@ -7,6 +7,7 @@ class MyLocalStorage {get lc(){return localStorage.getItem("lc") ?? ""}
 function initWbk(){
   const pw = new PWorkbook()
   const myLocalStorage = pw.addRef(new MyLocalStorage());   
+  const myLocalStorageLc = pw.addComputed( ()=> {return myLocalStorage.ref.lc + " YYY "} , [myLocalStorage])
    
   const shalom  = pw.addRef("shalom")
   const olam = pw.addRef("olam")
@@ -21,7 +22,7 @@ function initWbk(){
   const myAry = pw.addRef(["a"])
   const myAryCount = pw.addComputed( ()=> {return myAry.ref.length} , [myAry])
 
-  return  {pw, shalom,olam,theComputed, depComp, myNumber, addMynumber, myAry, myAryCount, myLocalStorage }
+  return  {pw, shalom,olam,theComputed, depComp, myNumber, addMynumber, myAry, myAryCount, myLocalStorage, myLocalStorageLc }
 }
 
 export const params = initWbk();
