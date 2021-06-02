@@ -8,7 +8,7 @@ function initWbk(){
   const pw = new PWorkbook()
   const myLocalStorage = pw.addRef(new MyLocalStorage());   
   const myLocalStorageLc = pw.addComputed( ()=> {return myLocalStorage.ref.lc + " YYY "} , [myLocalStorage])
-   
+
   const shalom  = pw.addRef("shalom")
   const olam = pw.addRef("olam")
   const myNumber= pw.addRef(20)

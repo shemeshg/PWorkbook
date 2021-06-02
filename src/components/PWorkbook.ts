@@ -1,6 +1,5 @@
-
-export class PRef<T> {
-  private _ref: T;
+class PRefPrivate<T> {
+  protected _ref: T;
   private _refreshCallback: () => void
   needsRefresh = false;
 
@@ -8,7 +7,7 @@ export class PRef<T> {
     return this._ref
   }
 
-  set ref(s: T){
+  protected setRef(s: T){
     this._ref = s
     this.signalRefresh();
   }
@@ -29,7 +28,19 @@ export class PRef<T> {
   }
 }
 
-class PComputed<T> extends PRef<T> {
+
+
+export class PRef<T> extends PRefPrivate<T> {
+  get ref(){
+    return this._ref
+  }
+
+  set ref(s: T){
+    this.setRef(s);
+  }
+}
+
+class PComputed<T>  extends PRefPrivate<T> {
   pcomputed: () => T 
   
 
@@ -50,7 +61,7 @@ class PComputed<T> extends PRef<T> {
 
   refresh(){
     if (this.needsRefresh) {
-      this.ref = this.pcomputed();
+      this.setRef( this.pcomputed());
       this.needsRefresh = false;
     }
   }
