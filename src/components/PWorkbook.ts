@@ -67,7 +67,7 @@ class PComputed<T>  extends PRefPrivate<T> {
   }
 }
 
-export class RefreshResult {
+class RefreshResult {
   // eslint-disable-next-line 
   ret: PRef<any>[] = []
   // eslint-disable-next-line 
